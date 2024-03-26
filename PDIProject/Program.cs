@@ -2,6 +2,7 @@
 using Lextm.SharpSnmpLib.Messaging;
 using System.Net;
 using System.Text;
+#nullable disable
 
 internal class Program
 {
@@ -9,22 +10,30 @@ internal class Program
     {
         string options;
         string oid;
+        string ipEndPoint = "";
         do
         {
             Console.WriteLine("Bem-vindo ao projeto sobre SNMP!");
+
+            if (String.IsNullOrEmpty(ipEndPoint))
+            {
+                Console.WriteLine("Digite o IP End Point para fazer a busca");
+                ipEndPoint = Console.ReadLine();
+            }
+
             Console.WriteLine("Oque deseja fazer? \n 1- Fazer um walk na rede (Ip pré-definido) \n 2- Buscar o value por um OID especifico \n 0 para SAIR ");
             options = Console.ReadLine();
 
             switch (options)
             {
                 case "1":
-                    WalkSNMP();
+                    WalkSNMP(ipEndPoint);
                     break;
 
                 case "2":
                     Console.WriteLine("Escreva a oid que deseja pesquisar");
                     oid = Console.ReadLine();
-                    GetSNMP(oid);
+                    GetSNMP(ipEndPoint, oid);
                     break;
 
                 case "0":
@@ -38,14 +47,14 @@ internal class Program
         } while (options != "0");
     }
 
-    public static void GetSNMP(string oidWrite)
+    public static void GetSNMP(string ipEndPoint,string oidWrite)
     {
         try
         {
             var oid = new List<Variable> { new Variable(new ObjectIdentifier(oidWrite)) };
             var result = Messenger.Get(
                 VersionCode.V1,
-                new IPEndPoint(IPAddress.Parse("192.168.100.40"), 161),
+                new IPEndPoint(IPAddress.Parse(ipEndPoint), 161),
                 new OctetString("public"),
                 oid,
                 60000);
@@ -54,7 +63,7 @@ internal class Program
             {
                 var value = result[0].Data.ToString();
 
-                Console.WriteLine($"A OID: {oid[0].Id} tem o seu value de: {value}");
+                Console.WriteLine($"A OID: {oid[0].Id} tem o seu value de: {value} \n");
             }
             else
             {
@@ -67,13 +76,13 @@ internal class Program
         }
     }
 
-    public static void WalkSNMP()
+    public static void WalkSNMP(string ipEndPoint)
     {
         try
         {
             var listResult = new List<Variable>();
             Messenger.Walk(VersionCode.V1,
-                               new IPEndPoint(IPAddress.Parse("192.168.100.40"), 161),
+                               new IPEndPoint(IPAddress.Parse(ipEndPoint), 161),
                                new OctetString("public"),
                                new ObjectIdentifier("1.3.6.1.2.1.1"),
                                listResult,
@@ -86,8 +95,8 @@ internal class Program
             foreach (var item in listResult)
             {
                 sb.AppendLine($" OID: {item.Id.ToString()}");
-                sb.AppendLine($" Value: {item.Data.ToString()}");
-                sb.AppendLine("-------");
+                sb.AppendLine($" Value: {item.Data.ToString()}\n");
+                sb.AppendLine("-------\n");
             }
 
             string resultString = sb.ToString();
