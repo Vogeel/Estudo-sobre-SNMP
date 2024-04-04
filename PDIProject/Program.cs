@@ -1,5 +1,6 @@
 ﻿using Lextm.SharpSnmpLib;
 using Lextm.SharpSnmpLib.Messaging;
+using System.Diagnostics;
 using System.Net;
 using System.Text;
 #nullable disable
@@ -13,7 +14,10 @@ internal class Program
         string ipEndPoint = "";
         do
         {
-            Console.WriteLine("Bem-vindo ao projeto sobre SNMP!");
+            Console.WriteLine("Bem-vindo ao projeto sobre SNMP! \n Aperte qualquer tecla para fazer busca de ip na rede");
+            Console.ReadKey();
+            GetIpsOnNetwork();
+
 
             if (String.IsNullOrEmpty(ipEndPoint))
             {
@@ -46,7 +50,29 @@ internal class Program
             }
         } while (options != "0");
     }
+    public static void GetIpsOnNetwork()
+    {
+        Process process = new();
 
+        process.StartInfo.FileName = "arp";
+
+        process.StartInfo.Arguments = "-a";
+
+        process.StartInfo.RedirectStandardOutput = true;
+
+        process.StartInfo.CreateNoWindow = true;
+
+        process.StartInfo.UseShellExecute = false;
+
+        process.Start();
+
+        string output = process.StandardOutput.ReadToEnd();
+        Console.WriteLine(output);
+
+        process.WaitForExit();
+
+
+    }
     public static void GetSNMP(string ipEndPoint,string oidWrite)
     {
         try
