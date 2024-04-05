@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDIProject", "PDIProject\PDIProject.csproj", "{05322573-AFDA-4E06-BFA8-57BEA08731CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PDIProject", "PDIProject\PDIProject.csproj", "{05322573-AFDA-4E06-BFA8-57BEA08731CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnmpSearchForm", "SnmpSearchForm\SnmpSearchForm.csproj", "{95DB15E1-14AF-493A-93F7-DCA286F31C81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{05322573-AFDA-4E06-BFA8-57BEA08731CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05322573-AFDA-4E06-BFA8-57BEA08731CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05322573-AFDA-4E06-BFA8-57BEA08731CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95DB15E1-14AF-493A-93F7-DCA286F31C81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95DB15E1-14AF-493A-93F7-DCA286F31C81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95DB15E1-14AF-493A-93F7-DCA286F31C81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95DB15E1-14AF-493A-93F7-DCA286F31C81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
